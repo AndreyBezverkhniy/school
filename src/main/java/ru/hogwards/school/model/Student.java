@@ -1,11 +1,30 @@
 package ru.hogwards.school.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 import java.util.Objects;
 
+@Entity
 public class Student {
-    private final Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
     private String name;
     private int age;
+
+    public Student() {
+        id = (long) -1;
+        name = null;
+        age = -1;
+    }
+
+    public Student(Long id, Student student) {
+        this.id = id;
+        this.name = student.name;
+        this.age = student.age;
+    }
 
     public Student(Long id, String name, int age) {
         this.id = id;
@@ -15,6 +34,10 @@ public class Student {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
