@@ -1,14 +1,7 @@
 package ru.hogwards.school.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.hogwards.school.model.Faculty;
 import ru.hogwards.school.model.Student;
 import ru.hogwards.school.service.FacultyService;
@@ -56,5 +49,16 @@ public class FacultyController {
     @GetMapping("color/{color}")
     public Collection<Faculty> getFacultiesWithColor(@PathVariable String color) {
         return facultyService.getFacultiesWithColor(color);
+    }
+
+    @GetMapping("search")
+    public Collection<Faculty> getFacultiesWithNameOrColor(@RequestParam(required = false) String name,
+                                                           @RequestParam(required = false) String color) {
+        return facultyService.getFacultyWithNameOrWithColor(name, color);
+    }
+
+    @GetMapping("{id}/students")
+    public Collection<Student> getStudentsOfFacultyById(@PathVariable Long id) {
+        return facultyService.getStudentsOfFacultyById(id);
     }
 }
