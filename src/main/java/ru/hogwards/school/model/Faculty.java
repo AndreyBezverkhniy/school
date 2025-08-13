@@ -1,9 +1,13 @@
 package ru.hogwards.school.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.FetchType;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +17,14 @@ public class Faculty {
     private Long id;
     private String name;
     private String color;
+
+    @OneToMany(mappedBy = "faculty", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Collection<Student> students;
+
+    public Collection<Student> getStudents() {
+        return students;
+    }
 
     public Faculty() {
         id = (long) -1;

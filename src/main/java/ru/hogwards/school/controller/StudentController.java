@@ -1,14 +1,8 @@
 package ru.hogwards.school.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.hogwards.school.model.Faculty;
 import ru.hogwards.school.model.Student;
 import ru.hogwards.school.service.StudentService;
 
@@ -55,5 +49,15 @@ public class StudentController {
     @GetMapping("age/{age}")
     public Collection<Student> getStudentsWithAge(@PathVariable int age) {
         return studentService.getStudentsWithAge(age);
+    }
+
+    @GetMapping("age")
+    public Collection<Student> getStudentsWithAgeBetween(@RequestParam int min, @RequestParam int max) {
+        return studentService.getStudentsWithAgeBetween(min, max);
+    }
+
+    @GetMapping("{id}/faculty")
+    public Faculty getFacultyOfStudentById(@PathVariable Long id) {
+        return studentService.getFacultyOfStudentById(id);
     }
 }
